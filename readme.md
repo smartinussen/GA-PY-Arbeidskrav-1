@@ -38,6 +38,14 @@ Forslag om å slå opp Try: og Except: for bedre logikk i kvalitetssikring av in
 - For meny 5, byttet fra en separat funksjon for key, til lambda.
 - Konseptuelle diskusjoner gjennom løsing av oppgavene, som har vist generiske forslag eller forklaring av funksjoner
 som jeg har kunnet adaptere til bruk for løsning.
+- Spurte om hjelp til å fikse en utfordring hvor min .gitignore file virker inaktiv
+Prompt: "I have a side question. It seems that in this Pycharm project my .gitignore file in the project root is disregarded. I have put in the .idea/ folder in .gitignore but the Git commit always includes them anyway"
+"
+
+Fikk følgende kommandoer:
+`git ls-files .idea/` - viser filer som er tracket av Git
+`git rm -r --cached .idea/` - Fjerner tracking uten å slette
+
 
 Gjennomføring:
 Jeg valgte å lage en list med dict, da man da har en navngitt nøkkel å gjøre oppslag
@@ -70,3 +78,4 @@ I utgangspunktet tenkte jeg å lage en egen funksjon som kunne gi
 verdi til `key=`
 
 Endte opp med et par hjelpefunksjoner for å kvalitetssikre input.
+
