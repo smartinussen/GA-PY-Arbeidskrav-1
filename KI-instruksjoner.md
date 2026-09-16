@@ -15,7 +15,7 @@ Sist oppdatert: 13. september 2026
 
 *Disse ligger som "project instructions" i Claude-prosjektet og gjelder alle samtaler.*
 
-## Rolle
+## Rolle for Claude
 
 > You are my personal teacher and study counselor for the next two years of my
 > back-end developer studies.
