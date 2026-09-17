@@ -18,6 +18,13 @@ Jeg gir den min kode, og den stiller spørsmål tilbake som:
 
 Jeg laster i tillegg opp slides fra timene, samt oppgavene
 som kontekst i form av .pdf / .md til et Claude CoWork prosjekt
+---
+#### Generelt om pakken
+Innleveringen kommer med .venv innstillinger med krav om Python >=3.14, samt at jeg også benytter Ty og Ruff for
+kvalitetskontroll. I prosjektinnstillingene er Ruff bare satt med krav om lik eller nyere enn versjon 0.16.6, men 
+for øyeblikket har jeg pinnet Ty med eksakt versjon, da denne er i Beta og muligens har breaking changes i hver eneste
+nye versjon. Kjenner til andre verktøy, men har valgt å gå all-in på Astral sine Rust baserte assistanse verktøy.
+UV spesielt gjør livet letttere.
 
 
 ## Oppgave 1
@@ -78,4 +85,19 @@ I utgangspunktet tenkte jeg å lage en egen funksjon som kunne gi
 verdi til `key=`
 
 Endte opp med et par hjelpefunksjoner for å kvalitetssikre input.
+
+## Oppgave 3
+#### KI bruk relevant for oppgave
+- Har spurt om time: var en gyldig type-annotation for en funksjon
+
+
+Her har jeg hentet inn funksjoner fra datetime biblioteket, og klart
+meg med `date, datetime, time, timedelta` 
+Jeg begynte med feil time fra stdlib, før jeg fant datetime. 
+Dokumentasjonens nettside: https://docs.python.org/3/library/datetime.html#datetime.datetime.now
+
+For at programmet skal fungere slik jeg har laget det, har jeg måttet
+legge inn en fast dato variabel, slik at jeg kunne bruke datetime.combine()
+
+Sekunder i input er bevisst droppet, etter evalering og testing.
 

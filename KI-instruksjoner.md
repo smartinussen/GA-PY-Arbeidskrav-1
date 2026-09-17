@@ -227,7 +227,7 @@ I tillegg lastes forelesningsslides og oppgavetekster opp i prosjektet som konte
 
 ## Merknad om nøyaktighet
 
-Instruksjonene beskriver hvordan assistenten *skal* oppføre seg. I praksis har den flere
+Instruksjonene beskriver hvordan assistenten *skal* oppføre seg. I praksis har den noen
 ganger vist kode uten at jeg ba om det, og jeg har korrigert den to ganger (punkt 2.2 og
 2.3 er resultatet av de korreksjonene). Det er verdt å nevne fordi det beskriver
 samarbeidet slik det faktisk har foregått, ikke slik instruksjonene ideelt sett tilsier.

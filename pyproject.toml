@@ -2,13 +2,12 @@
 name = "py-arbeidskrav-1"
 version = "0.1.0"
 requires-python = ">=3.14"
-dependencies = [
-    "ty==0.0.79",
-]
+dependencies = []
 
 [dependency-groups]
 dev = [
     "ruff>=0.16.6",
+    "ty==0.0.79",
 ]
 [tool.ruff.lint]
 select = ["E", "F", "I"]
