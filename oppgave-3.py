@@ -34,7 +34,6 @@ def ask_for_minutes(prompt: str) -> int:
 def ask_for_date(prompt: str) -> date:
     while True:
         date_input = input(prompt)
-            break
         try:
             return parse_date(date_input)
         except ValueError as err:
@@ -59,7 +58,7 @@ def end_time(start_time: time, add_minutes: int) -> time:
 
 
 def calculate_days(start_date: date, end_date: date) -> int:
-    '''Return an absolute no of days between two input dates calculated as end-date - start-date '''
+    """Return an absolute no of days between two input dates calculated as end-date - start-date"""
     return abs((end_date - start_date).days)
 
 
