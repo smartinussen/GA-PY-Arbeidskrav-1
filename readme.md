@@ -93,11 +93,14 @@ Endte opp med et par hjelpefunksjoner for å kvalitetssikre input.
 
 Her har jeg hentet inn funksjoner fra datetime biblioteket, og klart
 meg med `date, datetime, time, timedelta` 
-Jeg begynte med feil time fra stdlib, før jeg fant datetime. 
+Jeg begynte med feil `time` fra stdlib, før jeg fant datetime. 
 Dokumentasjonens nettside: https://docs.python.org/3/library/datetime.html#datetime.datetime.now
 
 For at programmet skal fungere slik jeg har laget det, har jeg måttet
 legge inn en fast dato variabel, slik at jeg kunne bruke datetime.combine()
 
-Sekunder i input er bevisst droppet, etter evalering og testing.
+`date.strptime` finnes fra Python > 3.14, og har derfor satt dette som krav i pyproject.toml
+
+Sekunder i klokkeslett input er bevisst droppet, etter evalering og testing.
+
 
