@@ -9,6 +9,7 @@ def parse_date(date_string: str) -> date:
 
 
 def parse_time(time_string: str) -> time:
+    """Return a time from input as hh:mm text. Raises ValueError if invalid."""
     return time.strptime(time_string, "%H:%M")
 
 
@@ -32,6 +33,7 @@ def ask_for_minutes(prompt: str) -> int:
 
 
 def ask_for_date(prompt: str) -> date:
+    """Ask until the user give a valid date input: dd.mm.yyyy """
     while True:
         date_input = input(prompt)
         try:
@@ -41,6 +43,7 @@ def ask_for_date(prompt: str) -> date:
 
 
 def ask_for_time(prompt: str) -> time:
+    """Ask until the user give a valid time input: hh:mm """
     while True:
         start_time = input(prompt)
         try:
@@ -58,7 +61,9 @@ def ask_yes_no(prompt: str) -> bool:
         print("Wrong/missing input. Only 'y' or 'n' is accepted")
 
 
+# Program functions
 def end_time(start_time: time, add_minutes: int) -> time:
+    """Returns starttime + aded minutes as new time object"""
     default_date = parse_date("01.01.1977")
     startingtime = datetime.combine(default_date, start_time)
     duration = timedelta(minutes=add_minutes)
@@ -71,25 +76,26 @@ def calculate_days(start_date: date, end_date: date) -> int:
 
 
 def sort_list_of_dates(dates: list[date]) -> list[date]:
+    """Sorts a list of date objects in ascending order"""
     return sorted(dates)
 
-# Main program and data below
-dates_unsorted = []
 
+# Main program and data below
 def main() -> None:
-    # valid_date = ask_for_date("Please enter a date (dd.mm.yyyy): ")
-    # print(f"You have entered {valid_date}, and it is a valid date")
-    # separator()
-    # startingtime = (ask_for_time("Please input start time (hh:mm): "))
-    # minutes_used = ask_for_minutes("Please input the amount of minutes passed: ")
-    # new_time = end_time(startingtime, minutes_used).strftime("%H:%M")
-    # print(f"The time is {new_time} after {minutes_used} minutes have passed")
-    # separator()
-    # from_date = ask_for_date("Please enter a date (dd.mm.yyyy): ")
-    # to_date = ask_for_date("Please enter another date (dd.mm.yyyy): ")
-    # no_of_days_diff = calculate_days(from_date, to_date)
-    # print(f"It's {no_of_days_diff} days between the dates you gave")
-    # separator()
+    valid_date = ask_for_date("Please enter a date (dd.mm.yyyy): ")
+    print(f"You have entered {valid_date}, and it is a valid date")
+    separator()
+    startingtime = (ask_for_time("Please input start time (hh:mm): "))
+    minutes_used = ask_for_minutes("Please input the amount of minutes passed: ")
+    new_time = end_time(startingtime, minutes_used).strftime("%H:%M")
+    print(f"The time is {new_time} after {minutes_used} minutes have passed")
+    separator()
+    from_date = ask_for_date("Please enter a date (dd.mm.yyyy): ")
+    to_date = ask_for_date("Please enter another date (dd.mm.yyyy): ")
+    no_of_days_diff = calculate_days(from_date, to_date)
+    print(f"It's {no_of_days_diff} days between the dates you gave")
+    separator()
+    dates_unsorted = []
     print("Registration of study session dates")
     while True:
         date_to_add = ask_for_date("Please enter a date (dd.mm.yyyy): ")
@@ -101,6 +107,7 @@ def main() -> None:
     print("--- Your study sessions in ascending order ---")
     for d in dates_sorted:
         print(d.strftime("%d.%m.%Y"))
-#===== MAIN PROGRAM =============================
+
+
 if __name__ == "__main__":
     main()
