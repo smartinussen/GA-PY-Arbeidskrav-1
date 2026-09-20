@@ -19,7 +19,7 @@ Jeg gir den min kode, og den stiller spørsmål tilbake som:
 Jeg laster i tillegg opp slides fra timene, samt oppgavene
 som kontekst i form av .pdf / .md til et Claude CoWork prosjekt
 ---
-#### Generelt om pakken
+#### Generelt om innleveringen:
 Innleveringen kommer med .venv innstillinger med krav om Python >=3.14, samt at jeg også benytter Ty og Ruff for
 kvalitetskontroll. I prosjektinnstillingene er Ruff bare satt med krav om lik eller nyere enn versjon 0.16.6, men 
 for øyeblikket har jeg pinnet Ty med eksakt versjon, da denne er i Beta og muligens har breaking changes i hver eneste
@@ -103,6 +103,30 @@ legge inn en fast dato variabel, slik at jeg kunne bruke datetime.combine()
 `date.strptime` finnes fra Python > 3.14, og har derfor satt dette som krav i pyproject.toml
 
 Sekunder i klokkeslett input er bevisst utelatt.
+
+
+## Oppgave 4
+#### KI bruk relevant for oppgave
+- Etter et par utvekslinger for å forstå hvordan jeg kunne benytte en dict jeg hadde med kategori og tall
+for å finne den mest populære uten hell, ble jeg servert med en lambda funksjon for max() som jeg kjenner såvidt til
+kombinert med .get. Det ble presentert slik `return max(counts, key=counts.get)` og 
+deretter revidert til `return max(categories, key=lambda x: categories[x])`. 
+  - Her klarte jeg ikke helt å koble rett på egen hånd, men heller ikke forklare i detalj hvordan dette fungerer.
+  - Endte derfor med å skrive 6 linjer med kode i en loop istedet for lambda, slik at jeg kan forklare og eier koden
+- Ved kodegjennomlesning av Claude, fikk jeg tilbakemeldinger på type annotations som vanlig. Jeg prøver å lære
+meg å skrive disse korrekt og konsekvent, noe som selvfølgelig gir litt ekstra feedback når jeg misser.
+- Jeg hadde litt problemer med try/except for filhåndtering. Klarte å sette opp kriterier og feilmeldinger,
+men hadde utfordringer med å bryte ut. Fikk forslag om å bare bruke `return`, men rettet dette til `return None`
+da PyCharm viste advarsel om avvik ved bruk av kun `return`
+- Manglet en `continue` i load_cases(). Dette ble påpekt av KI og deretter rettet av meg
+- Et google søk om dict vs list, viste et KI svar som forenklet forståelsen min av hvordan jeg skulle lettest
+lage `count_pr_category` med retur av Dict fremfor list of dicts.
+
+
+Kommentarer for løsning av Oppgave 4:
+- Mest populære kategori vil vise `første` treff ved to eller flere kategorier med samme antall henvendelser
+- Etter en stund var flere av funksjonnen gjenkjennelig fra tidligere oppgaver, og noe kode er gjenbrukt
+- Har brukt YouTube, Python docs for csv og RealPython som kilder til informasjon om håndtering av csv filen.
 
 
 
