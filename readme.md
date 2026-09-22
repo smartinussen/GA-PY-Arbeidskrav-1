@@ -104,6 +104,28 @@ legge inn en fast dato variabel, slik at jeg kunne bruke datetime.combine()
 
 Sekunder i klokkeslett input er bevisst utelatt.
 
+Test tilfeller:
+Funksjon 1 - Returner en gyldig dato
+
+| Inndata  |Forventet   |Faktisk   | Vurdering  |
+|---|---|---|---|
+|29.02.2026|Ugyldig|Ugylig og årsak|Godkjent| 
+|12.12.2023|Gyldig|Gyldig, bekreftet|Godkjent|
+
+Funksjon 2 - Starttidspunkt, legg til minutter og returner slutt tid
+
+|Inndata 1|Inndata 2|Forventet|Faktisk|Vurdering|
+|---|---|---|---|---|
+|12:54|63 min|13:57|13:57|Godkjent|
+|09:57|tre|Wrong input, only positive integers allowed|Wrong input, only positive integers allowed|Godkjent|
+
+Funksjon 3 - To inndatoer, retur av differanse i dager som absolutt tall
+
+|Inndata 1|Inndata 2|Forventet|Faktisk|Vurdering|
+|---|---|---|---|---|
+|28.01.1977|22.09.2026|18134|18134|Godkjent|
+|22.09.2026|28.01.1977|18134|18134|Godkjent|
+|34.34.1222|Ikke mulig|ValueError og forklaring     |ValueError: time data '34.34.1222' does not match format '%d.%m.%Y'     |Godkjent        |
 
 ## Oppgave 4
 #### KI bruk relevant for oppgave
@@ -129,4 +151,35 @@ Kommentarer for løsning av Oppgave 4:
 - Har brukt YouTube, Python docs for csv og RealPython som kilder til informasjon om håndtering av csv filen.
 
 
+Oppgave 4.4 - Finn og rett feil
+```
+def sum_resolved_minutes(requests: list[dict[str, str | int]]) -> int:
+  total = 0
+  for request in requests:
+    if request["is_resolved"] = "yes":
+       total = request["minutes"]
+  return total_minutes
+  
+print(sum_resolved_minutes())
+```
+
+Her er samme kode korrigert med kommentarer og dummy data
+```
+calls = [
+    {'is_resolved': 'yes','minutes': 3},
+    {'is_resolved': 'no', 'minutes': 2},
+    {'is_resolved': 'yes', 'minutes': 6},
+    {'is_resolved': 'no', 'minutes': 3}
+]
+
+
+def sum_resolved_minutes(requests: list[dict[str, str|int]]) -> int:
+    total_minutes = 0  # Korrigert variabelnavn, tilsvarende return statement - Mest beskrivende navn
+    for request in requests:
+        if request["is_resolved"] == "yes":  # Må bruke == for sammenligning
+            total_minutes += request["minutes"]  # Korrigert variabel navn, og rettet til addisjon av key for total minutes
+    return total_minutes
+
+print(sum_resolved_minutes(calls)) # Her må vi ha med inndata i funksjonskallet
+```
 
