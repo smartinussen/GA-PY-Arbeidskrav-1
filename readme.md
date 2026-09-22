@@ -31,7 +31,10 @@ UV spesielt gjør livet lettere.
 
 
 ## Oppgave 1
-#### KI bruk relevant for oppgave:
+
+Kjør program med: `uv run oppgave-1.py`
+
+### KI bruk relevant for oppgave:
 Ingen kode kopiert, men forslag om å bruke divmod(),
 er benyttet for tidskalkulering
 https://docs.python.org/3/library/functions.html#divmod
@@ -42,10 +45,13 @@ og forslag om bruk av `divmod`
 
 Forslag om å slå opp Try: og Except: for bedre logikk i kvalitetssikring av input av `int`
 
-Kjør program med: `uv run oppgave-1.py`
+
 
 ## Oppgave 2
-#### KI bruk relevant for oppgave:
+
+Kjør program med: `uv run oppgave-2.py`
+
+### KI bruk relevant for oppgave:
 - Forslag om å lage en variabel for type annotation for å unngå mange repetisjoner kom ved gjennomlesing av oppgave-2.py
 - For meny 5, byttet fra en separat funksjon for key, til lambda.
 - Konseptuelle diskusjoner gjennom løsing av oppgavene, som har vist generiske forslag eller forklaring av funksjoner
@@ -57,7 +63,6 @@ Prompt: "I have a side question. It seems that in this Pycharm project my .gitig
 Fikk følgende kommandoer:
 `git ls-files .idea/` - viser filer som er tracket av Git
 `git rm -r --cached .idea/` - Fjerner tracking uten å slette
-
 
 Gjennomføring:
 Jeg valgte å lage en list med dict, da man da har en navngitt nøkkel å gjøre oppslag
@@ -91,11 +96,14 @@ verdi til `key=`
 
 Endte opp med et par hjelpefunksjoner for å kvalitetssikre input.
 
-Kjør program med: `uv run oppgave-2.py`
-
 ## Oppgave 3
-#### KI bruk relevant for oppgave
+
+Kjør program med: `uv run oppgave-3.py`
+
+### KI bruk relevant for oppgave
 - Har spurt om time: var en gyldig type-annotation for en funksjon
+
+Kjør program med: `uv run oppgave-3.py`
 
 Her har jeg hentet inn funksjoner fra datetime biblioteket, og klart
 meg med `date, datetime, time, timedelta`.  
@@ -135,10 +143,13 @@ Funksjon 3 - To inndatoer, retur av differanse i dager som absolutt tall
 |22.09.2026|28.01.1977|18134|18134|Godkjent|
 |34.34.1222|Ikke mulig|ValueError og forklaring     |ValueError: time data '34.34.1222' does not match format '%d.%m.%Y'     |Godkjent        |
 
-Kjør program med: `uv run oppgave-3.py`
+
 
 ## Oppgave 4
-#### KI bruk relevant for oppgave
+
+Kjør program med: `uv run oppgave-4.py`
+
+### KI bruk relevant for oppgave
 - Etter et par utvekslinger for å forstå hvordan jeg kunne benytte en dict jeg hadde med kategori og tall
 for å finne den mest populære uten hell, ble jeg servert med en lambda funksjon for max() som jeg kjenner såvidt til
 kombinert med .get. Det ble presentert slik `return max(counts, key=counts.get)` og 
@@ -199,4 +210,17 @@ def sum_resolved_minutes(requests: list[dict[str, str|int]]) -> int:
 
 print(sum_resolved_minutes(calls)) # Her må vi ha med inndata i funksjonskallet
 ```
+
+# Oppgave 5
+
+Kjør program med: `uv run oppgave-5.py`
+
+### KI Bruk relevant for oppgave:
+- Linje 1
+
+#### Eksterne kilder
+Control Flow Structures - Real Python:
+- https://realpython.com/python-control-flow/#matching-patterns-with-match-case
+Python Docs - More control Flow (match statements)
+- https://docs.python.org/3/tutorial/controlflow.html#match-statements
 
