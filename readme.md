@@ -57,8 +57,8 @@ Kjør program med: `uv run oppgave-2.py`
 - Konseptuelle diskusjoner gjennom løsing av oppgavene, som har vist generiske forslag eller forklaring av funksjoner
 som jeg har kunnet adaptere til bruk for løsning.
 - Spurte om hjelp til å fikse en utfordring hvor min .gitignore file virker inaktiv
-Prompt: "I have a side question. It seems that in this Pycharm project my .gitignore file in the project root is disregarded. I have put in the .idea/ folder in .gitignore but the Git commit always includes them anyway"
-"
+Prompt: "I have a side question. It seems that in this Pycharm project my .gitignore file in the project root is 
+disregarded. I have put in the .idea/ folder in .gitignore but the Git commit always includes them anyway"
 
 Fikk følgende kommandoer:
 `git ls-files .idea/` - viser filer som er tracket av Git
@@ -218,9 +218,13 @@ Kjør program med: `uv run oppgave-5.py`
 ### KI Bruk relevant for oppgave:
 - Linje 1
 
-#### Eksterne kilder
+### Eksterne kilder
 Control Flow Structures - Real Python:
 - https://realpython.com/python-control-flow/#matching-patterns-with-match-case
 Python Docs - More control Flow (match statements)
 - https://docs.python.org/3/tutorial/controlflow.html#match-statements
+
+
+I oppgave-5 har jeg brukt match / case for menyen for
+enkelt å kvalitetssikre brukerinput for menyvalg.
 
