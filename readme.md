@@ -8,7 +8,7 @@ dette studiet. Den er oppfordret til å ikke komme med kodeforslag
 uten at jeg spesifikt ber om det. 
 Ved noen tilfeller i starten av Oppgave 1,
 har den kommet med forslag med generisk kode for å løse en utfordring, men jeg 
-har ved vært tilfelle kommenteret på dette, og modellen har korrigert sine egne 
+har ved hvert tilfelle kommenteret på dette, og modellen har korrigert sine egne 
 retningslinjer ved flere tilfeller. 
 
 Jeg gir den min kode, og den stiller spørsmål tilbake som:
@@ -18,13 +18,16 @@ Jeg gir den min kode, og den stiller spørsmål tilbake som:
 
 Jeg laster i tillegg opp slides fra timene, samt oppgavene
 som kontekst i form av .pdf / .md til et Claude CoWork prosjekt
+
+Claude har lest gjennom kodefiler og dokumentasjon før innlevering. Skrivefeil, og manglende
+type annotations er rettet etter dette.
 ---
 #### Generelt om innleveringen:
 Innleveringen kommer med .venv innstillinger med krav om Python >=3.14, samt at jeg også benytter Ty og Ruff for
 kvalitetskontroll. I prosjektinnstillingene er Ruff bare satt med krav om lik eller nyere enn versjon 0.16.6, men 
 for øyeblikket har jeg pinnet Ty med eksakt versjon, da denne er i Beta og muligens har breaking changes i hver eneste
 nye versjon. Kjenner til andre verktøy, men har valgt å gå all-in på Astral sine Rust baserte assistanse verktøy.
-UV spesielt gjør livet letttere.
+UV spesielt gjør livet lettere.
 
 
 ## Oppgave 1
@@ -38,6 +41,8 @@ Gjennomlest av Claude ved ferdig arbeid, kommentarer rundt PEP8 formattering (an
 og forslag om bruk av `divmod`
 
 Forslag om å slå opp Try: og Except: for bedre logikk i kvalitetssikring av input av `int`
+
+Kjør program med: `uv run oppgave-1.py`
 
 ## Oppgave 2
 #### KI bruk relevant for oppgave:
@@ -71,7 +76,7 @@ Et eksempel på dette er at jeg har lagt inn kontroll selv, men med type annotat
 får jeg en advarsel i PyCharm. Jeg vet at programmet leverer korrekte verdier, men programmet selv
 kan ikke garantere riktig resultat. 
 
-Advarslene er:
+Advarslene er (var - Ble korrigert i siste utgave av Pycharm):
 `No overload of 'sum' matches the arguments. Argument types: (Generator[str | int, Any, None]). Expected one of: (iterable: Iterable[Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20, 0] | bool]), (iterable: Iterable[_SupportsSumNoDefaultT])`
 `Member 'int' of 'str | int' does not have attribute 'lower'`
 
@@ -86,21 +91,24 @@ verdi til `key=`
 
 Endte opp med et par hjelpefunksjoner for å kvalitetssikre input.
 
+Kjør program med: `uv run oppgave-2.py`
+
 ## Oppgave 3
 #### KI bruk relevant for oppgave
 - Har spurt om time: var en gyldig type-annotation for en funksjon
 
-
 Her har jeg hentet inn funksjoner fra datetime biblioteket, og klart
-meg med `date, datetime, time, timedelta` 
+meg med `date, datetime, time, timedelta`.  
 Jeg begynte med feil `time` fra stdlib, før jeg fant datetime. 
+Dokumentasjonens tittel: `datetime — Basic date and time types`
+
 Dokumentasjonens nettside: https://docs.python.org/3/library/datetime.html#datetime.datetime.now
 Har også benyttet https://realpython.com/courses/python-datetime-module/
 
 For at programmet skal fungere slik jeg har laget det, har jeg måttet
 legge inn en fast dato variabel, slik at jeg kunne bruke datetime.combine()
 
-`date.strptime` finnes fra Python > 3.14, og har derfor satt dette som krav i pyproject.toml
+`date.strptime` finnes fra Python >= 3.14, og har derfor satt dette som krav i pyproject.toml
 
 Sekunder i klokkeslett input er bevisst utelatt.
 
@@ -109,7 +117,7 @@ Funksjon 1 - Returner en gyldig dato
 
 | Inndata  |Forventet   |Faktisk   | Vurdering  |
 |---|---|---|---|
-|29.02.2026|Ugyldig|Ugylig og årsak|Godkjent| 
+|29.02.2026|Ugyldig|Ugyldig og årsak|Godkjent| 
 |12.12.2023|Gyldig|Gyldig, bekreftet|Godkjent|
 
 Funksjon 2 - Starttidspunkt, legg til minutter og returner slutt tid
@@ -126,6 +134,8 @@ Funksjon 3 - To inndatoer, retur av differanse i dager som absolutt tall
 |28.01.1977|22.09.2026|18134|18134|Godkjent|
 |22.09.2026|28.01.1977|18134|18134|Godkjent|
 |34.34.1222|Ikke mulig|ValueError og forklaring     |ValueError: time data '34.34.1222' does not match format '%d.%m.%Y'     |Godkjent        |
+
+Kjør program med: `uv run oppgave-3.py`
 
 ## Oppgave 4
 #### KI bruk relevant for oppgave
@@ -147,11 +157,12 @@ lage `count_pr_category` med retur av Dict fremfor list of dicts.
 
 Kommentarer for løsning av Oppgave 4:
 - Mest populære kategori vil vise `første` treff ved to eller flere kategorier med samme antall henvendelser
-- Etter en stund var flere av funksjonnen gjenkjennelig fra tidligere oppgaver, og noe kode er gjenbrukt
-- Har brukt YouTube, Python docs for csv og RealPython som kilder til informasjon om håndtering av csv filen.
+- Etter en stund var flere av funksjonene gjenkjennelig fra tidligere oppgaver, og noe kode er gjenbrukt
+- Har brukt YouTube, Python docs for csv, egne bøker og RealPython som kilder til informasjon om håndtering av csv filen.
 
 
 Oppgave 4.4 - Finn og rett feil
+
 ```
 def sum_resolved_minutes(requests: list[dict[str, str | int]]) -> int:
   total = 0
@@ -164,6 +175,12 @@ print(sum_resolved_minutes())
 ```
 
 Her er samme kode korrigert med kommentarer og dummy data
+Korreksjoner:
+- samkjørt variabel navn inni funksjon. Beholdt det fra return statement da den var mest beskrivende
+- endret `=` til `==` for sammenligning, ikke tildeling
+- Lagt til addisjon som operasjon for minutter brukt, fremfor overskriving av variabelverdi i hver loop
+- Manglet argument ved funksjonskall i print statement.
+
 ```
 calls = [
     {'is_resolved': 'yes','minutes': 3},
