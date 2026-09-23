@@ -216,7 +216,14 @@ print(sum_resolved_minutes(calls)) # Her må vi ha med inndata i funksjonskallet
 Kjør program med: `uv run oppgave-5.py`
 
 ### KI Bruk relevant for oppgave:
-- Linje 1
+- Ved gjennomsyn av mitt forslag for menyvalg 1-4 foreslår Claude å bruke getattr, for å slå sammen flere
+3 forgreninger med loops som gjorde det samme til en funksjon. Dette er var jeg selvfølgelig interessert i
+og måtte slå opp på getattr, som var ukjent for meg. Fikk en korreksjon om å legge til .lower() ifb verdi sammenligning
+3 loops ble til 1. Lærerikt
+- Når jeg startet arbeided med menyvalgene, ble jeg gjort oppmerksom på at mye av koden var 
+allerede skrevet i de foregående oppgavene. Jeg har kopiert, limt og korrigert der jeg så jeg kunne
+spare tid basert på dette tipset. Jeg hadde nok sett dette selv innen kort tid med arbeid med meny
+funksjonene.
 
 ### Eksterne kilder
 Control Flow Structures - Real Python:

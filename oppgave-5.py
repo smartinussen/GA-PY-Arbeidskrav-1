@@ -67,17 +67,26 @@ def ask_for_status(prompt: str) -> str:
             return text_input.strip()
         print("Wrong/missing input. Only 'planned' or 'completed' is accepted")
 
+# First version of the filtering function
+# def get_filtered_activities(activities: list[Activity], field: str, criteria: str) -> list[Activity]:
+#     results = []
+#     if field == "title":
+#         for act in activities:
+#             if act.title.lower() in criteria.lower():
+#                 results.append(act)
+#     elif field == "category":
+#         for act in activities:
+#             if act.category.lower() in criteria.lower():
+#                 results.append(act)
+#     return results
 
+
+# Second version, assisted by AI with suggestion and explanation on getattr.
 def get_filtered_activities(activities: list[Activity], field: str, criteria: str) -> list[Activity]:
     results = []
-    if field == "title":
-        for act in activities:
-            if act.title.lower() in criteria.lower():
-                results.append(act)
-    elif field == "category":
-        for act in activities:
-            if act.category.lower() in criteria.lower():
-                results.append(act)
+    for act in activities:
+        if criteria.lower() == getattr(act, field).lower():
+            results.append(act)
     return results
 
 
@@ -85,8 +94,6 @@ def get_filtered_activities(activities: list[Activity], field: str, criteria: st
 def parse_date(date_string: str) -> dateclass:
     """Return a date from input as dd.mm.yyyy text. Raises ValueError if invalid."""
     return dateclass.strptime(date_string, "%d.%m.%Y")
-
-
 
 
 def main() -> None:
@@ -129,9 +136,9 @@ def main() -> None:
                         continue
                     if choice == "t":
                         choice = "title"
-                    elif choice == "c":
+                    else:
                         choice = "category"
-                    criteria = ask_for_text("Enter search criteria: ")
+                    criteria = ask_for_text("Enter search criteria: ").lower()
                     results = get_filtered_activities(activities, choice, criteria)
                     if not results:
                         print("No results found")
@@ -143,24 +150,21 @@ def main() -> None:
             case "4":
                 print("You selected: Filter by status")
                 while True:
-                    criteria = ask_for_text("Enter 'p' or 'c' to show planned or completed activities: ").lower()
-                    if criteria not in ("p", "c"):
+                    user_input = ask_for_text("Enter 'p' or 'c' to show planned or completed activities: ").lower()
+                    if user_input not in ("p", "c"):
                         print("Wrong choice, try again")
                         continue
-                    if criteria == "p":
+                    if user_input == "p":
                         criteria = "planned"
-                    elif criteria == "c":
+                    elif user_input == "c":
                         criteria = "completed"
-                    results = []
-                    for result in activities:
-                        if result.status.lower() == criteria:
-                            results.append(result)
+                    results = get_filtered_activities(activities, "status", criteria)
                     if not results:
                         print("No results found")
                         break
                     else:
                         for result in results:
-                            print(results)
+                            print(result)
                         break
 
             case "5":
