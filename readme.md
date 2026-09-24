@@ -224,6 +224,8 @@ og måtte slå opp på getattr, som var ukjent for meg. Fikk en korreksjon om å
 allerede skrevet i de foregående oppgavene. Jeg har kopiert, limt og korrigert der jeg så jeg kunne
 spare tid basert på dette tipset. Jeg hadde nok sett dette selv innen kort tid med arbeid med meny
 funksjonene.
+- Sendte en funksjon jeg hadde problemer med til gjennomlesing av KI, fikk svar at jeg hadde `return None` feilplassert
+Så over koden en gang til og forstod hvor feilen var.
 
 ### Eksterne kilder
 Control Flow Structures - Real Python:
@@ -234,4 +236,9 @@ Python Docs - More control Flow (match statements)
 
 I oppgave-5 har jeg brukt match / case for menyen for
 enkelt å kvalitetssikre brukerinput for menyvalg.
+
+For menyvalg 5 har jeg valgt synkende sortering. En videre forbedring hadde vært å gi brukeren valget, og sendt
+dette som parameter som valger reverse=False/True i sorteringsfunksjonen.
+
+
 
