@@ -21,8 +21,12 @@ som kontekst i form av .pdf / .md til et Claude CoWork prosjekt
 
 Claude har lest gjennom kodefiler og dokumentasjon før innlevering. Skrivefeil, og manglende
 type annotations er rettet etter dette.
----
-#### Generelt om innleveringen:
+
+Har vedlagt retningslinjene jeg først laget til Claude i filen [KI-instruksjoner.md](KI-instruksjoner.md)
+Metoden er forbedred underveis og endringer/forbedringer i instruksjoner og hvordan Claude skal oppføre seg
+er vedlagt i filen [teaching-guidelines-addendum.md](teaching-guidelines-addendum.md)
+
+## Generelt om innleveringen:
 Innleveringen kommer med .venv innstillinger med krav om Python >=3.14, samt at jeg også benytter Ty og Ruff for
 kvalitetskontroll. I prosjektinnstillingene er Ruff bare satt med krav om lik eller nyere enn versjon 0.16.6, men 
 for øyeblikket har jeg pinnet Ty med eksakt versjon, da denne er i Beta og muligens har breaking changes i hver eneste
@@ -102,8 +106,7 @@ Kjør program med: `uv run oppgave-3.py`
 
 ### KI bruk relevant for oppgave
 - Har spurt om time: var en gyldig type-annotation for en funksjon
-
-Kjør program med: `uv run oppgave-3.py`
+- Drøftet hvordan levere test eksempler i dokumentasjonen
 
 Her har jeg hentet inn funksjoner fra datetime biblioteket, og klart
 meg med `date, datetime, time, timedelta`.  
@@ -213,6 +216,9 @@ print(sum_resolved_minutes(calls)) # Her må vi ha med inndata i funksjonskallet
 
 ## Oppgave 5
 
+Dette er et program som kjører i terminalen for planlegging og oppfølging av aktiviteter inkl. import/eksport
+av data. Programmet holder aktiviteter i en liste med objekter basert på klassen Activity.
+
 Kjør program med: `uv run oppgave-5.py`
 
 ### KI Bruk relevant for oppgave:
@@ -242,9 +248,10 @@ enkelt å kvalitetssikre brukerinput for menyvalg.
 For menyvalg 5 har jeg valgt synkende sortering. En videre forbedring hadde vært å gi brukeren valget, og sendt
 dette som parameter som valger reverse=False/True i sorteringsfunksjonen.
 
-En forbedring jeg skulle tatt meg tid til, er at ved import så leser programmet uuid, og dersom match endrer
-gjeldende linje seg. Linjer uten id leses inn, linjer med ukjent uuid leses ikke inn. 
-Da kunne man tatt en eksport, og endret i bulk i filen, for deretter å importere den igjen for å oppdatere
+En forbedring jeg skulle tatt meg tid til, er at ved import så kunne programmet også leest inn uuid og sammenlignet disse
+mot aktiviteter i listen. Ved match endrer gjeldende aktivitet seg. Linjer uten id vil leses inn som nye, 
+linjer med ukjent uuid leses ikke inn, og linjer med mathcende uuid ville oppdateres. Da kunne man tatt en eksport, og 
+endret i bulk i filen, for deretter å importere den igjen for å oppdatere
 
 En viktig detalj med dette er at dersom man eksportere aktiviteter, og deretter importerer samme fil vil aktivitetene
 bli registrert en gang til (duplikater)
@@ -252,7 +259,28 @@ bli registrert en gang til (duplikater)
 Menyen er delt opp i handlinger jeg så fornuftig når jeg startet. Selv om oppgaven lister to kriterier under punkt 1,
 har jeg valgt å dele dette i menyvalg 1 og 2.
 
+Filstrukturen for programmet er:
+- oppgave-5.py - Selve programmet: 
+- pyproject.toml - Kravliste for versjon og verktøy samt evt metadata. Låst til Python >=3.14  for date.strptime
+- activities.csv - Demo data for import
+- activities_export.csv - Hardkodet filnavn for eksport av aktiviteter.
+- README.md - Denne filen
+- .gitignore - Liste over filer og mapper jeg ikke ønsker å spore med Git
 
 
+Noen testtilfeller jeg har prøvd:
+- Import av data med manglende tittel eller kategori - Gir detaljert feilmelding. Stopper import
+- Dersom status ikke er 'planned' eller 'completed' - Gir beskjed om ugyldig status
+- Dersom import av ikke eksisterende fil - Gir FileNotFoundError med tydelig feilmelding
+- Ved markering av allerede 'completed' aktivitet blir brukeren gjort oppmerksom på at den allere er 'completed'
+- Ved feil på datoformat eller tidsforbruk vil også brukeren få veiledning i hva som er galt
 
+
+### Git log
+- Git loggen for oppgave-5.py er vedlagt i filen [git-history.txt](git-history.txt)
+- Git repo er public, og tilgengelig her: https://github.com/smartinussen/GA-PY-Arbeidskrav-1
+
+## Oppgave 6 - Video
+
+Link til video: https://cleanshot.com/share/hx1JGcrz
 
