@@ -8,8 +8,9 @@ study_sessions: list[Session] = [
     {"topic": "mysql", "duration_minutes": 90, "status": "completed"},
     {"topic": "design", "duration_minutes": 60, "status": "planned"},
     {"topic": "bootdev", "duration_minutes": 45, "status": "completed"},
-    {"topic": "python", "duration_minutes": 45, "status": "planned"}
+    {"topic": "python", "duration_minutes": 45, "status": "planned"},
 ]
+
 
 def separator() -> None:
     print(30 * "-")
@@ -19,9 +20,9 @@ def show_sessions(sessions: list[Session]) -> None:
     if sessions:
         for i, session in enumerate(sessions, start=1):
             print(f"{'Result:':<10} {i}")
-            print(f"{'Subject:':<10} {session["topic"]}")
-            print(f"{'Duration:':<10} {session["duration_minutes"]} minutes")
-            print(f"{'Status:':<10} {session["status"]}")
+            print(f"{'Subject:':<10} {session['topic']}")
+            print(f"{'Duration:':<10} {session['duration_minutes']} minutes")
+            print(f"{'Status:':<10} {session['status']}")
             separator()
     else:
         print("No records")
@@ -54,9 +55,13 @@ def ask_for_status(prompt: str) -> str:
     """Ask until the user gives a valid input: str."""
     while True:
         text_input: str = input(prompt)
-        if text_input.lower().strip() == "planned" or text_input.lower().strip() == "completed":
+        if (
+            text_input.lower().strip() == "planned"
+            or text_input.lower().strip() == "completed"
+        ):
             return text_input.strip()
         print("Wrong/missing input. Only 'planned' or 'completed' is accepted")
+
 
 # Menu 3 - Filter for completed sessions
 def get_completed_sessions(sessions: list[Session]) -> list[Session]:
@@ -66,6 +71,7 @@ def get_completed_sessions(sessions: list[Session]) -> list[Session]:
             completed.append(session)
     return completed
 
+
 # Menu 4 - Search in sessions by criteria
 def search_in_sessions(criteria: str, sessions: list[Session]) -> list[Session]:
     search_results = []
@@ -74,9 +80,11 @@ def search_in_sessions(criteria: str, sessions: list[Session]) -> list[Session]:
             search_results.append(session)
     return search_results
 
+
 # Menu 5 - Show a sorted list of sessions by longest to shortest
 def sort_sessions_by_duration(sessions: list[Session]) -> list[Session]:
     return sorted(sessions, key=lambda s: s["duration_minutes"], reverse=True)
+
 
 # Menu 6 - Calculate total and avg time
 def calc_total_avg_time(sessions: list[Session]) -> tuple[int, float]:
@@ -107,7 +115,9 @@ def main() -> None:
             topic = ask_for_text("Please enter subject: ")
             duration = ask_for_int("Please enter duration in mins: ")
             status = ask_for_status("Register status (planned or completed): ")
-            study_sessions.append({"topic": topic, "duration_minutes": duration, "status": status})
+            study_sessions.append(
+                {"topic": topic, "duration_minutes": duration, "status": status}
+            )
         elif user_input == 2:
             show_sessions(study_sessions)
         elif user_input == 3:
@@ -128,6 +138,7 @@ def main() -> None:
             break
         else:
             print("Wrong alternative, try again")
+
 
 # Runtests
 if __name__ == "__main__":

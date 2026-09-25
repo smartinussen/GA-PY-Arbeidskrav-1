@@ -246,6 +246,11 @@ En forbedring jeg skulle tatt meg tid til, er at ved import så leser programmet
 gjeldende linje seg. Linjer uten id leses inn, linjer med ukjent uuid leses ikke inn. 
 Da kunne man tatt en eksport, og endret i bulk i filen, for deretter å importere den igjen for å oppdatere
 
+En viktig detalj med dette er at dersom man eksportere aktiviteter, og deretter importerer samme fil vil aktivitetene
+bli registrert en gang til (duplikater)
+
+Menyen er delt opp i handlinger jeg så fornuftig når jeg startet. Selv om oppgaven lister to kriterier under punkt 1,
+har jeg valgt å dele dette i menyvalg 1 og 2.
 
 
 
