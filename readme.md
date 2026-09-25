@@ -226,6 +226,8 @@ spare tid basert på dette tipset. Jeg hadde nok sett dette selv innen kort tid 
 funksjonene.
 - Sendte en funksjon jeg hadde problemer med til gjennomlesing av KI, fikk svar at jeg hadde `return None` feilplassert
 Så over koden en gang til og forstod hvor feilen var.
+- Ved gjennomsyn av en funksjon fikk jeg tips om å bruke <list>.extend(listenavn) fremfor å loope over en liste
+og bruke .append pr loop runde.
 
 ### Eksterne kilder
 Control Flow Structures - Real Python:
@@ -239,6 +241,11 @@ enkelt å kvalitetssikre brukerinput for menyvalg.
 
 For menyvalg 5 har jeg valgt synkende sortering. En videre forbedring hadde vært å gi brukeren valget, og sendt
 dette som parameter som valger reverse=False/True i sorteringsfunksjonen.
+
+En forbedring jeg skulle tatt meg tid til, er at ved import så leser programmet uuid, og dersom match endrer
+gjeldende linje seg. Linjer uten id leses inn, linjer med ukjent uuid leses ikke inn. 
+Da kunne man tatt en eksport, og endret i bulk i filen, for deretter å importere den igjen for å oppdatere
+
 
 
 

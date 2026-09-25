@@ -1,5 +1,5 @@
 # Miniprosjekt: Aktivitetsplanlegger
-import uuid
+import uuid, csv
 from datetime import date as dateclass
 
 
@@ -94,30 +94,52 @@ def mark_activity_completed(actid: str) -> str | None:
 
 
 # Second version of get_filtered_activities, assisted by AI with suggestion and explanation on getattr.
-def get_filtered_activities(activities: list[Activity], field: str, criteria: str) -> list[Activity]:
+def get_filtered_activities(activitylist: list[Activity], field: str, criteria: str) -> list[Activity]:
     results = []
-    for act in activities:
+    for act in activitylist:
         if criteria.lower() == getattr(act, field).lower():
             results.append(act)
     return results
 
 # TODO - Move variable assignment to menu same as menu option 4
 def sort_activites(activitylist: list[Activity], criteria) -> list[Activity]:
-    if criteria == "d":
-        sort_by = "date"
-    elif criteria == "m":
-        sort_by = "estimated_minutes"
-    return sorted(activitylist, key=lambda s: getattr(s, sort_by), reverse=True)
+    return sorted(activitylist, key=lambda s: getattr(s, criteria), reverse=True)
 
+def load_activities(actdict) -> None:
+        valid_rows = []
+        err_message = ""
+        for row_num, row in enumerate(actdict, start=2):
+            if not row["title"]:
+                err_message = f"File has errors: Missing title in row {row_num} - {row}\nCorrect any issues and try again. File not imported"
+                break
+            elif not row["category"]:
+                err_message = f"File has errors: Missing category in row {row_num} - {row}\nCorrect any issues and try again. File not imported"
+                break
+            elif row["status"].lower() not in ["planned", "completed"]:
+                err_message = f"File has errors: Wrong status in row {row_num} - {row}\nCorrect any issues and try again. File not imported"
+                break
+            try:
+                valid_rows.append(Activity(row["title"], row["category"], dateclass.fromisoformat(row["date"]), int(row["estimated_minutes"]), row["status"].lower()))
+            except ValueError as err:
+                err_message = f"File has errors: Wrong data in row {row_num} - '{row}' \nSpecific error: {err}\nCorrect any issues and try again. File not imported"
+                break
+        if err_message:
+            print(err_message)
+            return None
+        if not valid_rows:
+            print("The file contains no activities. No data imported")
+            return None
+        activities.extend(valid_rows)
+        print(f"File was successfully imported. {len(valid_rows)} records created ")
 
 # Helper functions
 def parse_date(date_string: str) -> dateclass:
     """Return a date from input as dd.mm.yyyy text. Raises ValueError if invalid."""
     return dateclass.strptime(date_string, "%d.%m.%Y")
 
+
 def calc_total_est_time(actlist: list[Activity]) -> int:
     return sum(act.estimated_minutes for act in actlist)
-
 
 
 def main() -> None:
@@ -195,10 +217,14 @@ def main() -> None:
                 print("You selected: Sort activities by date or duration")
                 while True:
                     user_input = ask_for_text("Enter 'd' to sort by date, or 'm' to sort by duration: ")
-                    if user_input not in ("d", "m"):
+                    if user_input.lower() not in ("d", "m"):
                         print("Wrong choice, try again")
                         continue
-                    sorted_activities = sort_activites(activities, user_input)
+                    if user_input.lower() == "d":
+                        criteria = "date"
+                    else:
+                        criteria = "estimated_minutes"
+                    sorted_activities = sort_activites(activities, criteria)
                     if not sorted_activities:
                         print("No activities found. Returning")
                         break
@@ -235,11 +261,43 @@ def main() -> None:
                 print(f"You have {total_activities} activites registered, of which {total_completed_activities} is 'completed'")
                 print(f"Total estimated time: {hours_est} hours and {minutes_est} mins")
 
-
             case "8":
                 print("You selected: Save activities to file")
+                separator()
+                filename = "activities_export.csv"
+                try:
+                    with open(filename, "w", encoding="utf-8") as csv_file:
+                        header = ["title", "category", "date", "estimated_minutes", "status"]
+                        writer = csv.DictWriter(csv_file, fieldnames=header)
+
+                        writer.writeheader()
+                        writer.writerows(
+                            {
+                                "title": activity.title,
+                                "category": activity.category,
+                                "date": activity.date,  # or use .strftime("%d.%m.%Y")
+                                "estimated_minutes": activity.estimated_minutes,
+                                "status": activity.status.lower()
+                            }
+                            for activity in activities
+                        )
+                    print("File was successfully written")
+                except PermissionError:
+                    print(f"Error: You do not have permission to write '{filename}'.")
+                except OSError as e:
+                    print(f"System error occurred: {e}")
             case "9":
                 print("You selected: Read activites from file")
+                separator()
+                filename = ask_for_text("Please enter filename incl. extension (like example.csv): ")
+                try:
+                    with open(filename, "r", encoding="utf-8") as csv_file:
+                        csv_importer = csv.DictReader(csv_file)
+                        load_activities(csv_importer)
+                except PermissionError:
+                    print(f"Error: You do not have permission to read '{filename}'.")
+                except OSError as e:
+                    print(f"System error occurred: {e}")
             case "q":
                 print("You selected: Quit program. Have a nice day")
                 break
@@ -253,5 +311,10 @@ if __name__ == "__main__":
     activities.append(Activity("Tittel 3", "Kategori 2", parse_date("26.09.2026"), 60, "planned"))
     activities.append(Activity("Tittel 4", "Kategori 2", parse_date("21.09.2026"), 58, "plaNNed"))
     activities.append(Activity("Tittel 5", "Kategori 3", parse_date("29.09.2026"), 30, "planned"))
-    activities.append(Activity("Tittel 6", "Kategori 3", parse_date("30.09.2026"), 90, "planneD"))
+    activities.append(Activity("Tittel 5", "Kategori 3", parse_date("30.09.2026"), 90, "planneD"))
+    activities.append(Activity("Tittel 5", "Kategori 3", parse_date("13.09.2026"), 90, "planneD"))
+    activities.append(Activity("Tittel 7", "Kategori 4", parse_date("30.07.2026"), 90, "planneD"))
+    activities.append(Activity("Tittel 8", "Kategori 4", parse_date("30.09.2025"), 90, "completed"))
+    activities.append(Activity("Tittel 8", "Kategori 4", parse_date("28.01.2024"), 90, "COMPLETED"))
+    activities.append(Activity("Tittel 9", "Kategori 5", parse_date("01.01.2023"), 90, "planneD"))
     main()
