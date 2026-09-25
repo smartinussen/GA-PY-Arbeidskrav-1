@@ -1,5 +1,6 @@
 # Miniprosjekt: Aktivitetsplanlegger
-import uuid, csv
+import uuid
+import csv
 from datetime import date as dateclass
 
 
@@ -16,7 +17,7 @@ class Activity:
     def __repr__(self) -> str:
         return f"id: {self.record_id} - {self.title} - {self.category} - {self.date.strftime("%d.%m.%Y")} - {self.estimated_minutes} - {self.status}"
 
-    def completed(self):
+    def mark_completed(self):
         self.status = "completed"
 
 activities: list[Activity] = []
@@ -64,7 +65,7 @@ def ask_for_status(prompt: str) -> str:
     while True:
         text_input: str = input(prompt)
         if text_input.lower().strip() == "planned" or text_input.lower().strip() == "completed":
-            return text_input.strip()
+            return text_input.lower().strip()
         print("Wrong/missing input. Only 'planned' or 'completed' is accepted")
 
 
@@ -73,7 +74,7 @@ def mark_activity_completed(actid: str) -> str | None:
         if act.record_id == actid and act.status.lower() == "completed":
             return "is_completed"
         elif act.record_id == actid:
-            act.completed()
+            act.mark_completed()
             return "completed"
     return None
 
@@ -101,11 +102,11 @@ def get_filtered_activities(activitylist: list[Activity], field: str, criteria: 
             results.append(act)
     return results
 
-# TODO - Move variable assignment to menu same as menu option 4
-def sort_activites(activitylist: list[Activity], criteria) -> list[Activity]:
+
+def sort_activities(activitylist: list[Activity], criteria: str) -> list[Activity]:
     return sorted(activitylist, key=lambda s: getattr(s, criteria), reverse=True)
 
-def load_activities(actdict) -> None:
+def load_activities(actdict: dict) -> None:
         valid_rows = []
         err_message = ""
         for row_num, row in enumerate(actdict, start=2):
@@ -115,7 +116,7 @@ def load_activities(actdict) -> None:
             elif not row["category"]:
                 err_message = f"File has errors: Missing category in row {row_num} - {row}\nCorrect any issues and try again. File not imported"
                 break
-            elif row["status"].lower() not in ["planned", "completed"]:
+            elif row["status"] not in ["planned", "completed"]:
                 err_message = f"File has errors: Wrong status in row {row_num} - {row}\nCorrect any issues and try again. File not imported"
                 break
             try:
@@ -167,32 +168,43 @@ def main() -> None:
                 act_category = ask_for_text("Please enter a category: ")
                 act_date = ask_for_date("Enter a date for the activity: ")
                 act_duration = ask_for_int("Please enter duration in mins: ")
-                act_status = ask_for_status("Register status ('planned' or 'completed'): ").lower()
+                act_status = ask_for_status("Register status ('planned' or 'completed'): ")
                 activities.append(Activity(act_title, act_category, act_date, act_duration, act_status))
+
             case "2":
                 print("You selected: Show activities")
-                for act in range(len(activities)):
-                    print(activities[act])
+                separator()
+                if not activities:
+                    print("No activities found. Returning to menu")
+                else:
+                    for act in activities:
+                        print(act)
+
             case "3":
                 print("You selected: Search for activity or category")
-                while True:
-                    choice = ask_for_text("Enter 't' for title search, or 'c' for category search: ").lower()
-                    if choice not in ("t", "c"):
-                        print("Wrong choice, try again")
-                        continue
-                    if choice == "t":
-                        choice = "title"
-                    else:
-                        choice = "category"
-                    criteria = ask_for_text("Enter search criteria: ").lower()
-                    results = get_filtered_activities(activities, choice, criteria)
-                    if not results:
-                        print("No results found")
-                        break
-                    else:
-                        for result in results:
-                            print(result)
-                        break
+                separator()
+                if not activities:
+                    print("No activities found. Returning to menu")
+                else:
+                    while True:
+                        choice = ask_for_text("Enter 't' for title search, or 'c' for category search: ").lower()
+                        if choice not in ("t", "c"):
+                            print("Wrong choice, try again")
+                            continue
+                        if choice == "t":
+                            choice = "title"
+                        else:
+                            choice = "category"
+                        criteria = ask_for_text("Enter search criteria: ").lower()
+                        results = get_filtered_activities(activities, choice, criteria)
+                        if not results:
+                            print("No results found")
+                            break
+                        else:
+                            for result in results:
+                                print(result)
+                            break
+
             case "4":
                 print("You selected: Filter by status")
                 while True:
@@ -224,36 +236,40 @@ def main() -> None:
                         criteria = "date"
                     else:
                         criteria = "estimated_minutes"
-                    sorted_activities = sort_activites(activities, criteria)
+                    sorted_activities = sort_activities(activities, criteria)
                     if not sorted_activities:
-                        print("No activities found. Returning")
+                        print("No activities found. Returning to menu")
                         break
-                    for act in range(len(sorted_activities)):
-                        print(sorted_activities[act])
+                    for act in sorted_activities:
+                        print(act)
                     break
 
             case "6":
                 print("You selected: Mark activity as completed")
-                for act in range(len(activities)):
-                    print(activities[act])
-                while True:
-                    actid = ask_for_text("Which activity do you want to mark as completed (uuid) or 'r' to return: ")
-                    if actid.lower() == "r":
-                        break
-                    result = mark_activity_completed(actid)
-                    if result == "is_completed":
-                        print(f"Activity {actid} is already completed. Try another")
-                        continue
-                    elif result == "completed":
-                        print(f"Activity {actid} was marked as 'completed'")
-                    else:
-                        print(f"Activity {actid} was not found. Try again")
+                separator()
+                if not activities:
+                    print(f"No activities found. Returning to menu")
+                else:
+                    for act in activities:
+                        print(act)
+                    while True:
+                        actid = ask_for_text("Which activity do you want to mark as completed (uuid) or 'r' to return: ")
+                        if actid.lower() == "r":
+                            break
+                        result = mark_activity_completed(actid)
+                        if result == "is_completed":
+                            print(f"Activity {actid} is already completed. Try another")
+                            continue
+                        elif result == "completed":
+                            print(f"Activity {actid} was marked as 'completed'")
+                        else:
+                            print(f"Activity {actid} was not found. Try again")
 
             case "7":
                 print("You selected: Show no.of activities, total estimated time and no. of completed")
                 total_activities = len(activities)
                 if not total_activities:
-                    print("No activities found")
+                    print("No activities found. Returning to menu")
                     continue
                 hours_est, minutes_est = divmod(calc_total_est_time(activities), 60)
                 total_completed_activities = len(get_filtered_activities(activities, "status", "completed"))
@@ -264,28 +280,32 @@ def main() -> None:
             case "8":
                 print("You selected: Save activities to file")
                 separator()
-                filename = "activities_export.csv"
-                try:
-                    with open(filename, "w", encoding="utf-8") as csv_file:
-                        header = ["title", "category", "date", "estimated_minutes", "status"]
-                        writer = csv.DictWriter(csv_file, fieldnames=header)
+                if not activities:
+                    print(f"No activities found. Returning to menu")
+                else:
+                    filename = "activities_export.csv"
+                    try:
+                        with open(filename, "w", encoding="utf-8") as csv_file:
+                            header = ["title", "category", "date", "estimated_minutes", "status"]
+                            writer = csv.DictWriter(csv_file, fieldnames=header)
 
-                        writer.writeheader()
-                        writer.writerows(
-                            {
-                                "title": activity.title,
-                                "category": activity.category,
-                                "date": activity.date,  # or use .strftime("%d.%m.%Y")
-                                "estimated_minutes": activity.estimated_minutes,
-                                "status": activity.status.lower()
-                            }
-                            for activity in activities
-                        )
-                    print("File was successfully written")
-                except PermissionError:
-                    print(f"Error: You do not have permission to write '{filename}'.")
-                except OSError as e:
-                    print(f"System error occurred: {e}")
+                            writer.writeheader()
+                            writer.writerows(
+                                {
+                                    "title": activity.title,
+                                    "category": activity.category,
+                                    "date": activity.date,  # or use .strftime("%d.%m.%Y")
+                                    "estimated_minutes": activity.estimated_minutes,
+                                    "status": activity.status.lower()
+                                }
+                                for activity in activities
+                            )
+                        print("File was successfully written")
+                    except PermissionError:
+                        print(f"Error: You do not have permission to write '{filename}'.")
+                    except OSError as e:
+                        print(f"System error occurred: {e}")
+
             case "9":
                 print("You selected: Read activites from file")
                 separator()
@@ -296,11 +316,15 @@ def main() -> None:
                         load_activities(csv_importer)
                 except PermissionError:
                     print(f"Error: You do not have permission to read '{filename}'.")
+                except FileNotFoundError:
+                    print(f"Error: File not found. Try again")
                 except OSError as e:
                     print(f"System error occurred: {e}")
+
             case "q":
                 print("You selected: Quit program. Have a nice day")
                 break
+
             case _:
                 print(f"Incorrect alternative > {menu_input} <: Try again")
 
