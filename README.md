@@ -211,7 +211,7 @@ def sum_resolved_minutes(requests: list[dict[str, str|int]]) -> int:
 print(sum_resolved_minutes(calls)) # Her må vi ha med inndata i funksjonskallet
 ```
 
-# Oppgave 5
+## Oppgave 5
 
 Kjør program med: `uv run oppgave-5.py`
 
@@ -251,6 +251,8 @@ bli registrert en gang til (duplikater)
 
 Menyen er delt opp i handlinger jeg så fornuftig når jeg startet. Selv om oppgaven lister to kriterier under punkt 1,
 har jeg valgt å dele dette i menyvalg 1 og 2.
+
+
 
 
 

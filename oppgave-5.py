@@ -394,4 +394,13 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    activities.append(Activity("Python", "Programming", parse_date("01.09.2026"), 45, "completed"))
+    activities.append(Activity("Python", "Programming", parse_date("23.09.2026"), 60, "completed"))
+    activities.append(Activity("SQL", "Database", parse_date("26.09.2026"), 60, "planned"))
+    activities.append(Activity("Memorymanagement", "Programming", parse_date("21.09.2026"), 58, "planned"))
+    activities.append(Activity("Gym", "PhysEd", parse_date("29.09.2026"), 30, "planned"))
+    activities.append(Activity("Python", "Programming", parse_date("30.09.2026"), 90, "planned"))
+    activities.append(Activity("Self study", "Own time", parse_date("13.09.2026"), 90, "planned"))
+    activities.append(Activity("dotnet", "Programming", parse_date("30.07.2026"), 90, "planned"))
     main()
+
